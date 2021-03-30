@@ -132,7 +132,12 @@ class DocsMain extends Component {
               <div>
                 <p>appearance</p>
                 <p>array</p>
-                <p>List of seasons that the character appeared in</p>
+                <p>List of seasons of Breaking Bad that the character appeared in</p>
+              </div>
+              <div>
+                <p>better_call_saul_appearance</p>
+                <p>array</p>
+                <p>List of seasons of Better Call Saul that the character appeared in</p>
               </div>
               <div>
                 <p>portrayed</p>
