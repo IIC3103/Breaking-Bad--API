@@ -18,9 +18,7 @@ app.use(compression())
 
 app.use(express.static(`${__dirname}/../build`));
 
-console.log('Database url: ' + process.env.DATABASE_URL.length)
-
-massive(process.env.DATABASE_URL)
+massive(process.env.DATABASE_URL + '?ssl=true')
   .then(db => {
     app.set('db', db);
     console.log('DB connection OK')
@@ -29,12 +27,12 @@ massive(process.env.DATABASE_URL)
     console.log('Database connection error', err);
   });
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000, // 15 minutes
-//   max: 10000
-// });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10000
+});
 
-// app.use(limiter);
+app.use(limiter);
 
 routes(app);
 
