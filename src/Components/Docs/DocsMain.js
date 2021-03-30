@@ -92,6 +92,7 @@ class DocsMain extends Component {
           <h3 id="char">Character Endpoints</h3>
           <div id="char_at">
             <h4>Character Attributes</h4>
+            <p>All characters endpoints return a maximum of 10 results. To navigate through results, use limit & offset (see limits & offset documentation)</p>
             <div className="schema">
               <div>
                 <p>Attribute</p>
@@ -147,7 +148,7 @@ class DocsMain extends Component {
           </div>
           <div id="char_all">
             <h4>Get all characters</h4>
-            <p>Endpoint to retrieve information from all characters.</p>
+            <p>Endpoint to retrieve information from all characters, with a max limit of 10 results (see limits & offset documentation).</p>
             <p className="example">/api/characters</p>
           </div>
           <div id="char_id">
