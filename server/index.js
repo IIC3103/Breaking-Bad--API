@@ -26,12 +26,12 @@ massive(process.env.DATABASE_URL)
     console.log('Database connection error', err);
   });
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10000
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 10000
+// });
 
-app.use(limiter);
+// app.use(limiter);
 
 routes(app);
 
