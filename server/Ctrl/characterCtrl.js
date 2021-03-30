@@ -9,38 +9,12 @@ const aMap = (arr) => {
   return arr ? arr.map((el) => +el) : [];
 };
 
-const charactersFunc = (func) => {
-  func.map((e, i) => {
-    e.occupation && occ.push(e.occupation.split(',').map((el) => el.trim()));
-    e.appearance && app.push(e.appearance.split(','));
-    betterApp.push(
-      e.better_call_saul_appearance && e.better_call_saul_appearance.split(',')
-    );
-
-    if (!e.category) {
-      e.category = 'Breaking Bad';
-    }
-
-    e.occupation = occ[i];
-    if (e.appearance) {
-      e.appearance = aMap(app[i]);
-    } else {
-      e.appearance = [];
-    }
-    e.better_call_saul_appearance = aMap(betterApp[i]);
-    e.birthday = e.birthday
-      ? moment(e.birthday, 'MM-DD-YYYY').format('MM-DD-YYYY')
-      : 'Unknown';
-  });
-};
-
 const getPeople = (req, res) => {
   const db = req.app.get('db');
   const { limit, name, offset, category } = req.query;
 
   if (category) {
     db.characters.get_char_by_category([`%${category}%`]).then((response) => {
-      charactersFunc(response);
       res
         .status(200)
         .send(limit || offset ? response.splice(offset || 0, limit) : response);
@@ -62,7 +36,6 @@ const getPeople = (req, res) => {
 
   !name
     ? db.characters.get_characters().then((response) => {
-        charactersFunc(response);
         res
           .status(200)
           .send(
@@ -75,17 +48,17 @@ const getPeople = (req, res) => {
             ? `%${capitalizeFirstLetter(newName)}%`
             : '%%';
           db.characters.get_char_closest(percentName).then((secondResponse) => {
-            charactersFunc(secondResponse);
             res.status(200).send(
-              // secondResponse
               limit || offset
                 ? secondResponse.splice(offset || 0, limit)
                 : secondResponse
             );
           });
+          return;
+
         } else {
-          charactersFunc(response);
           res.status(200).send(response);
+          return;
         }
       });
   occ = [];
@@ -108,7 +81,6 @@ const getPeopleFooter = (req, res) => {
 
   !name
     ? db.characters.get_characters().then((response) => {
-        charactersFunc(response);
         res
           .status(200)
           .send(
@@ -116,7 +88,6 @@ const getPeopleFooter = (req, res) => {
           );
       })
     : db.characters.get_char_by_name([newName]).then((response) => {
-        charactersFunc(response);
         res.status(200).send(response);
       });
   occ = [];
@@ -131,7 +102,6 @@ const getPeopleById = (req, res) => {
   db.characters
     .get_char_by_id([id])
     .then((resp) => {
-      charactersFunc(resp);
       res.status(200).send(resp);
     })
     .catch((err) => {
@@ -179,22 +149,7 @@ const getHomePage = (req, res) => {
     db.characters
       .get_char_by_category_homepage([`%${category}%`, limit || 1])
       .then((resp) => {
-        resp.map((e, i) => {
-          if (!e.category) {
-            e.category = 'Breaking Bad';
-          }
-          e.occupation && o.push(e.occupation.split(','));
-          e.appearance && a.push(e.appearance.split(','));
-          betterCallA.push(
-            e.better_call_saul_appearance &&
-              e.better_call_saul_appearance.split(',')
-          );
 
-          e.occupation = o[i];
-          e.appearance = aMap(a[i]);
-          e.better_call_saul_appearance = aMap(betterCallA[i]);
-        });
-        // res.status(200).send(resp);
         res
           .status(200)
           .send(limit || offset ? resp.splice(offset || 0, limit) : resp);
@@ -212,34 +167,13 @@ const getHomePage = (req, res) => {
   db.characters
     .get_random_char([limit || 1])
     .then((resp) => {
-      resp.map((e, i) => {
-        if (!e.category) {
-          e.category = 'Breaking Bad';
-        }
-        e.occupation && o.push(e.occupation.split(','));
-        a.push(e.appearance.split(','));
-
-        e.occupation = o[i];
-        e.appearance = aMap(a[i]);
-      });
       res.status(200).send(resp);
     })
     .catch((err) => {
       res.status(500).send(err);
     });
-};
 
-const getCharLimit = (req, res) => {
-  const db = req.app.get('db');
-
-  db.characters
-    .get_char_limit([limit, offset])
-    .then((resp) => {
-      res.status(200).send(resp);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+  return;
 };
 
 const getAll = (req, res) => {
@@ -259,9 +193,9 @@ const getEverything = async (req, res) => {
   await db.quotes.get_quotes().then((resp) => {
     everything.push(...resp);
   });
-  await db.death.get_deaths().then((resp) => {
-    everything.push(...resp);
-  });
+  // await db.death.get_deaths().then((resp) => {
+  //   everything.push(...resp);
+  // });
 
   await res.status(200).send(everything);
 };

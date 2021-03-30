@@ -18,9 +18,12 @@ app.use(compression())
 
 app.use(express.static(`${__dirname}/../build`));
 
+console.log('Database url: ' + process.env.DATABASE_URL.length)
+
 massive(process.env.DATABASE_URL)
   .then(db => {
     app.set('db', db);
+    console.log('DB connection OK')
   })
   .catch(err => {
     console.log('Database connection error', err);

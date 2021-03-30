@@ -4,24 +4,15 @@ const getEpisodes = (req, res) => {
 
   if (series) {
     db.episodes.get_episodes_by_category([`%${series}%`]).then(response => {
-      response.map(e => {
-        const char =
-          e.characters && e.characters.split(',').map(e => e.trim(''));
-        e.characters = char;
-      });
       res.status(200).send(response);
-      return;
     });
+
+    return;
   }
 
   db.episodes
     .get_episodes()
     .then(resp => {
-      resp.map(e => {
-        const char =
-          e.characters && e.characters.split(',').map(e => e.trim(''));
-        e.characters = char;
-      });
       res.status(200).send(resp);
     })
     .catch(err => {
@@ -35,11 +26,6 @@ const getEpisodesById = (req, res) => {
   db.episodes
     .get_episodes_by_id([req.params.id])
     .then(resp => {
-      resp.map(e => {
-        const char =
-          e.characters && e.characters.split(',').map(e => e.trim(''));
-        e.characters = char;
-      });
       res.status(200).send(resp);
     })
     .catch(err => {
