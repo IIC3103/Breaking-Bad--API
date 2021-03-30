@@ -1,17 +1,21 @@
 const { all } = require('../Data/url');
-const moment = require('moment');
+// const moment = require('moment');
 const { capitalizeFirstLetter } = require('../utils/character');
-
-let occ = [],
-  app = [],
-  betterApp = [];
-const aMap = (arr) => {
-  return arr ? arr.map((el) => +el) : [];
-};
 
 const getPeople = (req, res) => {
   const db = req.app.get('db');
-  const { limit, name, offset, category } = req.query;
+  let { limit, name, offset, category } = req.query;
+
+  console.log(limit)
+  console.log(isNaN(parseInt(limit)))
+
+  if ((limit && isNaN(parseInt(limit))) || (offset && isNaN(parseInt(offset)))) {
+    res.status(400).send('Bad Request');
+    return;
+  } else {
+    limit = !limit || parseInt(limit) > 10 ? 10 : parseInt(limit);
+    offset = !offset || parseInt(offset) < 0 ? 0 : parseInt(offset)
+  }
 
   if (category) {
     db.characters.get_char_by_category([`%${category}%`]).then((response) => {
@@ -19,9 +23,6 @@ const getPeople = (req, res) => {
         .status(200)
         .send(limit || offset ? response.splice(offset || 0, limit) : response);
     });
-    occ = [];
-    app = [];
-    betterApp = [];
     return;
   }
 
@@ -61,9 +62,6 @@ const getPeople = (req, res) => {
           return;
         }
       });
-  occ = [];
-  app = [];
-  betterApp = [];
 };
 
 const getPeopleFooter = (req, res) => {
@@ -90,9 +88,6 @@ const getPeopleFooter = (req, res) => {
     : db.characters.get_char_by_name([newName]).then((response) => {
         res.status(200).send(response);
       });
-  occ = [];
-  app = [];
-  betterApp = [];
 };
 
 const getPeopleById = (req, res) => {
@@ -107,10 +102,6 @@ const getPeopleById = (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-
-  occ = [];
-  app = [];
-  betterApp = [];
 };
 
 const getRandomChar = (req, res) => {
@@ -120,17 +111,8 @@ const getRandomChar = (req, res) => {
   const a = [];
 
   db.characters
-    .get_random_char([limit || 1])
+    .get_random_char([1])
     .then((resp) => {
-      resp.map((e, i) => {
-        e.occupation && o.push(e.occupation.split(','));
-        e.appearance && a.push(e.appearance.split(','));
-
-        e.occupation = o[i];
-        if (e.appearance) {
-          e.appearance = aMap(a[i]);
-        }
-      });
       res.status(200).send(resp);
     })
     .catch((err) => {
@@ -176,36 +158,10 @@ const getHomePage = (req, res) => {
   return;
 };
 
-const getAll = (req, res) => {
-  res.status(200).json(all);
-};
-
-const getEverything = async (req, res) => {
-  const db = req.app.get('db');
-  let everything = [];
-
-  await db.characters.get_characters().then((resp) => {
-    everything.push(...resp);
-  });
-  await db.episodes.get_episodes().then((resp) => {
-    everything.push(...resp);
-  });
-  await db.quotes.get_quotes().then((resp) => {
-    everything.push(...resp);
-  });
-  // await db.death.get_deaths().then((resp) => {
-  //   everything.push(...resp);
-  // });
-
-  await res.status(200).send(everything);
-};
-
 module.exports = {
   getPeople,
   getPeopleById,
   getRandomChar,
   getHomePage,
-  getAll,
-  getEverything,
   getPeopleFooter,
 };
