@@ -18,7 +18,9 @@ app.use(compression())
 
 app.use(express.static(`${__dirname}/../build`));
 
-massive(process.env.DATABASE_URL + '?ssl=true')
+const db_url = process.env.DATABASE_URL ? process.env.DATABASE_URL + '?ssl=true' : process.env.DATABASE_URL;
+
+massive(db_url)
   .then(db => {
     app.set('db', db);
     console.log('DB connection OK')

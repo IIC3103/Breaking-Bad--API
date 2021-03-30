@@ -6,7 +6,7 @@ import {
   multipleCharacterExample,
   episodeExample,
   quoteExample,
-  deathExample,
+  // deathExample,
 } from '../Code/code';
 import navigation from '../../data/navigation.json';
 
@@ -86,7 +86,7 @@ class DocsMain extends Component {
         </div>
         <div id="base">
           <h4>Base Url</h4>
-          <p className="example">https://www.breakingbadapi.com/api/</p>
+          <p className="example">https://tarea-1-breaking-bad.herokuapp.com/api/</p>
         </div>
         <div>
           <h3 id="char">Character Endpoints</h3>
@@ -107,11 +107,6 @@ class DocsMain extends Component {
                 <p>name</p>
                 <p>string</p>
                 <p>A character's full name</p>
-              </div>
-              <div>
-                <p>birthday</p>
-                <p>string</p>
-                <p>A character's birthday</p>
               </div>
               <div>
                 <p>occupation</p>
@@ -175,7 +170,7 @@ class DocsMain extends Component {
             </p>
           </div>
           <div id="char_rand">
-            <h4>Get random character</h4>
+            <h4>[DEPRECATED] Get random character</h4>
             <p>Request a random character</p>
             <p className="example">/api/character/random</p>
             <p className="offset">
@@ -330,7 +325,7 @@ class DocsMain extends Component {
             <p className="example">/api/quote?series=Better+Call+Saul</p>
           </div>
           <div id="q_rand">
-            <h4>Get a random quote</h4>
+            <h4>[DEPRECATED] Get a random quote</h4>
             <p>Endpoint to retrieve a random quote</p>
             <p className="example">/api/quote/random</p>
           </div>
@@ -350,7 +345,7 @@ class DocsMain extends Component {
             <p className="example">/api/quote/random?author=Skyler+White</p>
           </div>
         </div>
-        <div>
+        {/* <div>
           <h3 id="death">Death Endpoints</h3>
           <div id="death_at">
             <h4>Death Attributes</h4>
@@ -449,7 +444,7 @@ class DocsMain extends Component {
             </p>
             <p className="example">/api/random-death</p>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

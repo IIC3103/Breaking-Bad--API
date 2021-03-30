@@ -15,7 +15,7 @@ class Footer extends Component {
     this.getChar();
     this.getEpisodes();
     this.getQuotes();
-    this.getDeaths();
+    // this.getDeaths();
   }
 
   getChar() {
@@ -36,21 +36,21 @@ class Footer extends Component {
     });
   }
 
-  getDeaths() {
-    axios.get('/api/death-count').then(res => {
-      this.setState({ deaths: res.data });
-    });
-  }
+  // getDeaths() {
+  //   axios.get('/api/death-count').then(res => {
+  //     this.setState({ deaths: res.data });
+  //   });
+  // }
 
   render() {
-    const { totalChar, episodes, quotes, deaths } = this.state;
+    const { totalChar, episodes, quotes } = this.state;
     return (
       <FooterWrap role="contentinfo">
         <TextWrapper>
           <Text>Characters: {totalChar.length}</Text>
           <Text>Episodes: {episodes.length}</Text>
           <Text>Quotes: {quotes.length}</Text>
-          <Text>Death Count: {deaths[0] && deaths[0].deathCount}</Text>
+          {/* <Text>Death Count: {deaths[0] && deaths[0].deathCount}</Text> */}
         </TextWrapper>
         <a href="https://github.com/timbiles/Breaking-Bad--API" aria-label="Github link" target="blank">
           <Icon viewBox="0 0 128 128">

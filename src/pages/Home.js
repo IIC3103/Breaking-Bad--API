@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import { Container, HomeHeader, SubText, Highlight } from '../styles/homeStyle';
 import Characters from '../Components/Characters/Characters';
 import '../Components/Home/Home.scss';
@@ -58,17 +58,17 @@ const StyledIcon = styled.img`
   }
 `;
 
-const StyledButton = styled(Button)`
-  &&& {
-    text-transform: none;
-  }
-`;
+// const StyledButton = styled(Button)`
+//   &&& {
+//     text-transform: none;
+//   }
+// `;
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [display, setDisplay] = useState('Breaking Bad');
   // Change this name Plz
-  const [rd, setRd] = useState({});
+  // const [rd, setRd] = useState({});
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState('');
 
@@ -82,11 +82,11 @@ const Home = () => {
     await setCharacters(response);
   };
 
-  const randomDeath = async () => {
-    const getDeath = await fetch('/api/random-death');
-    const response = await getDeath.json();
-    setRd(response);
-  };
+  // const randomDeath = async () => {
+  //   const getDeath = await fetch('/api/random-death');
+  //   const response = await getDeath.json();
+  //   setRd(response);
+  // };
 
   const navigation = e => {
     const { id } = e.target;
@@ -115,41 +115,40 @@ const Home = () => {
     />
   ));
 
-  const death = (
-    <div className="death_info" key={rd.death_id}>
-      <div>
-        <h2>{rd.death}</h2>
-        <img src={rd.img} alt={rd.death} />
-      </div>
-      <div>
-        <h4>Cause of death:</h4>
-        <p>{rd.cause}</p>
-        <h4>Responsible:</h4>
-        <p>{rd.responsible}</p>
-        <h4>Last words:</h4>
-        <p>"{rd.last_words}"</p>
-      </div>
-    </div>
-  );
+  // const death = (
+  //   <div className="death_info" key={rd.death_id}>
+  //     <div>
+  //       <h2>{rd.death}</h2>
+  //       <img src={rd.img} alt={rd.death} />
+  //     </div>
+  //     <div>
+  //       <h4>Cause of death:</h4>
+  //       <p>{rd.cause}</p>
+  //       <h4>Responsible:</h4>
+  //       <p>{rd.responsible}</p>
+  //       <h4>Last words:</h4>
+  //       <p>"{rd.last_words}"</p>
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <HomeWrapper onClick={navigation} role="main">
       <Container>
         <HomeHeader>
-          The Breaking Bad A<Highlight>P</Highlight>I
+          TAREA 1 - The Breaking Bad A<Highlight>P</Highlight>I
         </HomeHeader>
         <SubText>...Tread Lightly</SubText>
       </Container>
       <>
-        <StyledText>Now with Better Call Saul Data!</StyledText>
+        <StyledText>Ahora con datos de Better Call Saul!</StyledText>
         <StyledSmallText>
-          Check out the{' '}
-          <StyledLink to="/documentation">documentation</StyledLink>.
+          Revisa la{' '}
+          <StyledLink to="/documentation">documentación</StyledLink>.
         </StyledSmallText>
         <StyledSmallText>
-          <span>New!</span>{' '}
-          Try out the information playground{' '}
-          <StyledLink to="/playground">here</StyledLink>!
+          Prueba la API{' '}
+          <StyledLink to="/playground">aquí</StyledLink>!
         </StyledSmallText>
       </>
       <IconContainer>
@@ -174,7 +173,7 @@ const Home = () => {
       </IconContainer>
 
       <div className="character_map">{charMap}</div>
-      <div className="test_api">
+      {/* <div className="test_api">
         <div className="death_map">
           <div>
             <h3>Click here to find out about a random death!</h3>
@@ -182,7 +181,7 @@ const Home = () => {
           </div>
           {rd.death && death}
         </div>
-      </div>
+      </div> */}
     </HomeWrapper>
   );
 };

@@ -118,40 +118,5 @@
     "id": "q_rand_auth",
     "name": "Get random quote by author",
     "tag": "p"
-  },
-  {
-    "id": "death",
-    "name": "Deaths",
-    "tag": "h2"
-  },
-  {
-    "id": "death_at",
-    "name": "Death Attributes",
-    "tag": "p"
-  },
-  {
-    "id": "death_all",
-    "name": "Death information",
-    "tag": "p"
-  },
-  {
-    "id": "death_inv",
-    "name": "Get individual death information",
-    "tag": "p"
-  },
-  {
-    "id": "death_count",
-    "name": "Death count",
-    "tag": "p"
-  },
-  {
-    "id": "death_name",
-    "name": "Death Count by individual",
-    "tag": "p"
-  },
-  {
-    "id": "death_rand",
-    "name": "Random death information",
-    "tag": "p"
   }
 ]

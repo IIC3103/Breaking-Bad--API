@@ -192,7 +192,7 @@ const Playground = () => {
         Use the categories below as a starting point.
       </SubHeader>
       <SearchBar>
-        <p>https://www.breakingbadapi.com/api/</p>
+        <p>https://tarea-1-breaking-bad.herokuapp.com/api/</p>
         <SearchInput
           type="text"
           onChange={updateSearch}
