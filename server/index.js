@@ -18,7 +18,7 @@ app.use(compression())
 
 app.use(express.static(`${__dirname}/../build`));
 
-massive(process.env.CONNECTION_STRING)
+massive(process.env.DATABASE_URL)
   .then(db => {
     app.set('db', db);
   })
