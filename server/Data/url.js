@@ -1,8 +1,8 @@
 module.exports = {
    all: {
-    characters: 'https://breakingbadapi.com/api/characters',
-    episodes: 'https://breakingbadapi.com/api/episodes',
-    quotes: 'https://breakingbadapi.com/api/quotes',
-    deaths: 'https://breakingbadapi.com/api/deaths'
+    characters: 'https://tarea-1-breaking-bad.herokuapp.com/api/characters',
+    episodes: 'https://tarea-1-breaking-bad.herokuapp.com/api/episodes',
+    quotes: 'https://tarea-1-breaking-bad.herokuapp.com/api/quotes',
+    deaths: 'https://tarea-1-breaking-bad.herokuapp.com/api/deaths'
   }
 };
